@@ -8,7 +8,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 " Plug 'ctrlpvim/ctrlp.vim'
 Plug 'sbdchd/neoformat'
-" Plug 'maralla/completor.vim', {'do': 'cd pythonx/completers/javascript && npm install'}
+Plug 'maralla/completor.vim', {'do': 'cd pythonx/completers/javascript && npm install'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'pangloss/vim-javascript'
@@ -108,6 +108,7 @@ set laststatus=2
 " NerdTree
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * wincmd p
 
 " Vimux
 " Prompt for a command to run
