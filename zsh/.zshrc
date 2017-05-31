@@ -7,7 +7,7 @@ if [[ ! -f ~/.zplug/init.zsh ]]; then
   fi
 fi
 
-export ZPLUG_HOME=/usr/local/opt/zplug
+export ZPLUG_HOME=~/.zplug
 TERM=xterm
 source $ZPLUG_HOME/init.zsh
 
@@ -15,11 +15,11 @@ zplug "zplug/zplug", hook-build:"zplug --self-manage"
 export NVM_LAZY_LOAD=true
 zplug "lukechilds/zsh-nvm"
 zplug "zimframework/zim", depth:1, use:"init.zsh", hook-build:"ln -sf $ZPLUG_ROOT/repos/zimframework/zim ~/.zim"
-zplug "modules/osx", depth:1, from:prezto
+# zplug "modules/osx", depth:1, from:prezto
 zplug "ahmedelgabri/pure", depth:1, use:"{async,pure}.zsh"
 zplug "knu/z", use:"z.sh", depth:1, defer:1
 zplug "lukechilds/zsh-better-npm-completion", defer:1
-zplug "maxmellon/yarn_completion", defer:1
+# zplug "maxmellon/yarn_completion", defer:1
 zplug "b4b4r07/emoji-cli"
 
 # Zim settings
