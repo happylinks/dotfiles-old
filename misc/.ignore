@@ -1,0 +1,18 @@
+# AGIGNORE
+# ##########################
+
+.git
+vendor
+doc
+rdoc
+coverage
+
+*.min.*
+*.pyc
+*.map
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.spl

@@ -1,0 +1,192 @@
+; vim: ft=gitconfig
+
+[user]
+  name = Michiel Westerbeek
+  email = happylinks@gmail.com
+
+[include]
+  path = ~/.gitconfig.extra
+
+[color]
+  ui = true
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow
+  frag = magenta
+  old = red strike
+  new = green italic
+  whitespace = red reverse
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = red
+
+[color "diff-highlight"]
+  oldNormal = "red bold"
+  oldHighlight = "red bold 52"
+  newNormal = "green bold"
+  newHighlight = "green bold 22"
+
+[pager]
+  show = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
+  diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
+
+[interactive]
+  diffFilter = diff-so-fancy --patch-mode | less --tabs=4 -RFX
+
+[core]
+  editor = $EDITOR
+  whitespace=fix,space-before-tab,tab-in-indent,trailing-space,cr-at-eol
+  excludesfile = ~/.dotfiles/git/.gitignore
+  attributesfile = ~/.dotfiles/git/.gitattributes
+  ; https://news.ycombinator.com/item?id=11388479
+  untrackedCache = true
+  pager = diff-so-fancy | less --tabs=4 -RFX
+
+[alias]
+  co = checkout
+  cb = checkout -b
+  cm = commit
+  st = status -sb
+  br = branch --sort=-committerdate
+  rb = "!sh -c \"git rebase -i HEAD~$1\" -"
+  d = diff --patch-with-stat
+  dc = d --staged
+  ; https://twitter.com/csswizardry/status/867676530780065792
+  dm = d --word-diff-regex=.
+  l = log --graph --pretty=format:\"%C(blue)%h %Creset- %C(yellow)<%G?> %Creset- %C(green)(%cr) %Creset%s - %C(cyan)%aN %C(magenta)%d\" --date=short
+  la = l --all --simplify-by-decoration
+  lnm = l --no-merges
+  last = l -1
+  ten = l -n 10
+  wt = whatchanged --pretty=format:\"%C(blue)%h %Creset- %C(yellow)<%G?> %Creset- %C(green)(%cr) %C(cyan)<%aN> %Creset%aE %C(magenta)%d %n %C(yellow)%s %n%Creset\" --date=short
+  fl = l -u
+  gr = grep -Ii
+  patch = !git --no-pager diff --no-color
+  recentlocal = for-each-ref --count=10 --sort=-committerdate refs/heads/ --format='%(committerdate:short) %(refname:short) [%(committername)]'
+  recentall = for-each-ref --count=10 --sort=-committerdate --format='%(committerdate:short) %(refname:short) [%(committername)]'
+  track = push origin -u HEAD
+  blm = blame -wMC
+  this = !git init && git add . && git commit -m \"initial commit\"
+  who = shortlog -sne
+  doctor = remote -v show origin
+  grr = grep --break --heading --line-number
+  ll = log --cc
+  lastchange = log -p --follow -n 1
+  stashes = stash list
+  undo = reset --soft HEAD^
+  prune = fetch --prune
+  stash-all = stash save --include-untracked
+  amend = commit --amend -C HEAD
+  unadd = reset HEAD
+
+[branch]
+  autosetupmerge = always
+  autosetuprebase = always
+
+[branch "master"]
+  rebase = true
+
+[diff]
+  # Detect copies as well as renames
+  renames = copies
+  algorithm = histogram
+  tool = vimdiff
+  compactionHeuristic = true
+
+[difftool]
+  prompt = false
+[diff "exif"]
+  textconv = exiftool
+[diff "plist"]
+  textconv = plutil -convert xml1 -o -
+[difftool "vimdiff"]
+  # $BASE $LOCAL $REMOTE $MERGED
+  cmd = $EDITOR -d $LOCAL $REMOTE -c '$wincmd w' -c 'wincmd J'
+
+[merge]
+  # https://git-scm.com/docs/git-config#git-config-mergeff
+  # ff = only
+  # Include summaries of merged commits in newly created merge commit messages
+  log = 1000
+  tool = vimdiff
+  # https://git-scm.com/docs/git-config#git-config-mergeconflictStyle
+  ; conflictstyle = diff3
+
+[log]
+  decorate = short
+
+[mergetool]
+  keepBackup = false
+  prompt = false
+
+[mergetool "vimdiff"]
+  cmd = $EDITOR -d $LOCAL $REMOTE -c '$wincmd w' -c 'wincmd J'
+
+[pull]
+  rebase = true
+
+[push]
+  default = simple
+  followTags = true
+
+[status]
+  submodulesummary = true
+
+[apply]
+  whitespace = nowarn
+
+[filter "media"]
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
+
+[fetch]
+  prune = true
+
+# https://git-scm.com/docs/git-config#git-config-transferfsckObjects
+[transfer]
+  fsckObjects = true
+[fetch]
+  fsckObjects = true
+[receive]
+  fsckObjects = true
+
+# URL shorthands
+[url "git@github.com:"]
+  insteadOf = "gh:"
+  pushInsteadOf = "github:"
+  pushInsteadOf = "git://github.com/"
+
+[url "git://github.com/"]
+  insteadOf = "github:"
+
+[url "git@gist.github.com:"]
+  insteadOf = "gst:"
+  pushInsteadOf = "gist:"
+  pushInsteadOf = "git://gist.github.com/"
+
+[url "git://gist.github.com/"]
+  insteadOf = "gist:"
+
+[url "git@github.com:ahmedelgabri/"]
+  insteadOf = "me:"
+  pushInsteadOf = "https://github.com/ahmedelgabri/"
+  pushInsteadOf = "http://github.com/ahmedelgabri/"
+  pushInsteadOf = "git://github.com/ahmedelgabri/"
+  pushInsteadOf = "me:"
+
+[credential]
+  helper = osxkeychain
+
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
+[rebase]
+  autosquash = true
