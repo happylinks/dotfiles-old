@@ -6,7 +6,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'sbdchd/neoformat'
 " Plug 'maralla/completor.vim', {'do': 'cd pythonx/completers/javascript && npm install'}
 Plug 'vim-airline/vim-airline'
@@ -18,6 +18,8 @@ Plug 'benmills/vimux'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
 Plug 'craigemery/vim-autotag'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 set statusline+=%#warningmsg#
@@ -49,14 +51,21 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Remap CTRL+P to fzf :Files
+nnoremap <C-S-P> :Files<cr>
+
+" Add fzf :Find command with ripgrep and remap to CTR+F
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --fixed-strings --ignore-case --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0) 
+nnoremap <C-S-F> :Find<cr>
+
 highlight SignColumn ctermbg=none
 
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 
 " Ctrlp
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-let g:ctrlp_custom_ignore = {
+" set runtimepath^=~/.vim/bundle/ctrlp.vim
+" let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/](\.(git|hg|svn|dist)|node_modules|bower_components|WEB-INF|build|dist)$',
     \ }
 

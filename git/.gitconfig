@@ -18,8 +18,8 @@
 [color "diff"]
   meta = yellow
   frag = magenta
-  old = red strike
-  new = green italic
+  # old = red strike
+  # new = green italic
   whitespace = red reverse
 
 [color "status"]
