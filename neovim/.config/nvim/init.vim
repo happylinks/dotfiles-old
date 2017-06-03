@@ -31,6 +31,7 @@ set omnifunc=syntaxcomplete#Complete
 set splitbelow
 set splitright
 set backspace=indent,eol,start
+set wildignore+=*/.git/*,*/tmp/*,*.swp,*.json
 
 " Remaps
 " Disable Arrow keys in Escape mode
@@ -55,7 +56,7 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <C-S-P> :Files<cr>
 
 " Add fzf :Find command with ripgrep and remap to CTR+F
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --fixed-strings --ignore-case --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0) 
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --fixed-strings --ignore-case --follow --glob "!(.git/*|.json)" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0) 
 nnoremap <C-S-F> :Find<cr>
 
 highlight SignColumn ctermbg=none
@@ -74,6 +75,7 @@ set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
 
 " remove whitespace
 autocmd FileType javascript autocmd BufWritePre <buffer> %s/\s\+$//e
+autocmd FileType javascript.jsx autocmd BufWritePre <buffer> %s/\s\+$//e
 
 " Ale
 set nocompatible

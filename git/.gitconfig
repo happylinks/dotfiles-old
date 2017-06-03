@@ -47,7 +47,7 @@
   attributesfile = ~/.dotfiles/git/.gitattributes
   ; https://news.ycombinator.com/item?id=11388479
   untrackedCache = true
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  # pager = diff-so-fancy | less --tabs=4 -RFX
 
 [alias]
   co = checkout
@@ -88,10 +88,10 @@
 
 [branch]
   autosetupmerge = always
-  autosetuprebase = always
+  # autosetuprebase = always
 
 [branch "master"]
-  rebase = true
+  # rebase = true
 
 [diff]
   # Detect copies as well as renames
@@ -130,7 +130,7 @@
   cmd = $EDITOR -d $LOCAL $REMOTE -c '$wincmd w' -c 'wincmd J'
 
 [pull]
-  rebase = true
+  # rebase = true
 
 [push]
   default = simple
@@ -174,11 +174,11 @@
 [url "git://gist.github.com/"]
   insteadOf = "gist:"
 
-[url "git@github.com:ahmedelgabri/"]
+[url "git@github.com:happylinks/"]
   insteadOf = "me:"
-  pushInsteadOf = "https://github.com/ahmedelgabri/"
-  pushInsteadOf = "http://github.com/ahmedelgabri/"
-  pushInsteadOf = "git://github.com/ahmedelgabri/"
+  pushInsteadOf = "https://github.com/happylinks/"
+  pushInsteadOf = "http://github.com/happylinks/"
+  pushInsteadOf = "git://github.com/happylinks/"
   pushInsteadOf = "me:"
 
 [credential]
