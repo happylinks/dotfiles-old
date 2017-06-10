@@ -2,21 +2,18 @@ set encoding=utf-8
 
 call plug#begin()
 Plug 'joshdick/onedark.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
-" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'sbdchd/neoformat'
 Plug 'maralla/completor.vim', {'do': 'cd pythonx/completers/javascript && npm install'}
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'Valloric/MatchTagAlways'
 Plug 'alvan/vim-closetag'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'benmills/vimux'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
 Plug 'craigemery/vim-autotag'
@@ -53,6 +50,8 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+" Tmux Left doesn't work on osx
+nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
 " Remap CTRL+P to fzf :Files
 nnoremap <C-S-P> :Files<cr>
@@ -92,7 +91,7 @@ let g:ale_linters = {
 
 " Neoformat
 let g:neoformat_javascript_prettier_custom = {
-            \ 'exe': 'prettier',
+            \ 'exe': '/Users/michielwesterbeek/.nvm/versions/node/v7.3.0/bin/prettier',
             \ 'args': [
             \    '--stdin',
             \    '--parser flow',
@@ -105,43 +104,54 @@ let g:neoformat_javascript_prettier_custom = {
 
 let g:neoformat_enabled_javascript = ['prettier_custom']
 
-" Airline/Powerline
-let g:airline_theme='onedark'
-set laststatus=2
-
 " NerdTree
+" Open NERDTree automatically when vim starts if no files specified.
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Focus on the buffer automatically if no files specified.
 autocmd VimEnter * wincmd p
+" Close vim when NERDTree is the last open buffer.
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Show hidden files in NERDTree
+let NERDTreeShowHidden=1
+
+" NERDCommenter
 
 " MatchTagAlways
 let g:mta_filetypes = {
     \ 'html' : 1,
     \ 'xhtml' : 1,
     \ 'xml' : 1,
-    \ 'js' : 1,
-    \ 'jsx' : 1,
+    \ 'javascript' : 1,
+    \ 'javascript.jsx' : 1,
     \}
 
 " vim-closetag
 let g:closetag_filenames = "*.html,*.xhtml,*.jsx,*.js"
 let g:closetag_emptyTags_caseSensitive = 1
 
-" Vimux
-" Prompt for a command to run
-map <Leader>vp :VimuxPromptCommand<CR>
-" Run last command executed by VimuxRunCommand
-map <Leader>vl :VimuxRunLastCommand<CR>
-" Inspect runner pane
-map <Leader>vi :VimuxInspectRunner<CR>
-" Zoom the tmux runner pane
-map <Leader>vz :VimuxZoomRunner<CR>
+" Theming
 
 " set background=dark " for the dark version
 " set background=light " for the light version
+syntax on
 colorscheme onedark
-hi Normal guibg=NONE ctermbg=NONE
+let g:onedark_terminal_italics = 1
+" hi Normal guibg=NONE ctermbg=NONE
 hi Visual term=reverse cterm=reverse guibg=NONE
+
+" Airline/Powerline
+let g:airline_theme='onedark'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_section_b = "%{airline#util#wrap(airline#extensions#branch#get_head(),0)}"
+let g:airline_section_c = "" " Hide filename in bottom airline.
+let g:airline_section_y = "" " Hide fileencoding and fileformat.
+let g:airline_section_z = "" " Hide percentage, line number and column number.
+let g:airline_section_warning = "%{airline#util#wrap(airline#extensions#ale#get_warnings(),0)}"
+let g:airline#extensions#wordcount#enabled = 0 " Hide wordcount.
+set laststatus=2
+set ttimeoutlen=50
+let g:airline#extensions#default#section_truncate_width = {}
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
