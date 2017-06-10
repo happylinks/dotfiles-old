@@ -13,6 +13,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'Valloric/MatchTagAlways'
+Plug 'alvan/vim-closetag'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 Plug 'tpope/vim-fugitive'
@@ -112,6 +114,19 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd VimEnter * wincmd p
 
+" MatchTagAlways
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'js' : 1,
+    \ 'jsx' : 1,
+    \}
+
+" vim-closetag
+let g:closetag_filenames = "*.html,*.xhtml,*.jsx,*.js"
+let g:closetag_emptyTags_caseSensitive = 1
+
 " Vimux
 " Prompt for a command to run
 map <Leader>vp :VimuxPromptCommand<CR>
@@ -126,6 +141,7 @@ map <Leader>vz :VimuxZoomRunner<CR>
 " set background=light " for the light version
 colorscheme onedark
 hi Normal guibg=NONE ctermbg=NONE
+hi Visual term=reverse cterm=reverse guibg=NONE
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
