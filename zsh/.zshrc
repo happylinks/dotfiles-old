@@ -74,7 +74,7 @@ SAVEHIST=$HISTSIZE
 export GITHUB_USER="happylinks"
 export PROJECTS="$HOME/Projects"
 
-export FZF_DEFAULT_OPTS='--min-height 30 --height 50% --reverse --tabstop 2 --multi --margin 0,3,3,3'
+export FZF_DEFAULT_OPTS='--min-height 30 --height 30% --reverse --tabstop 2 --multi --margin 0,3,3,3'
 export FZF_DEFAULT_COMMAND='rg --no-messages --files --hidden --follow --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 if [ -x ~/.config/nvim/plugged/fzf.vim/bin/preview.rb ]; then

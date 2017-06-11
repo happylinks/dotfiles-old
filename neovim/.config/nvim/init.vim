@@ -53,23 +53,22 @@ nnoremap <C-H> <C-W><C-H>
 " Tmux Left doesn't work on osx
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
+" FZF
+" let g:fzf_layout = { 'window': 'enew' }
+
 " Remap CTRL+P to fzf :Files
 nnoremap <C-S-P> :Files<cr>
+nnoremap <silent> <leader><leader> :Files<cr>
+nnoremap <silent> <Leader>c :Colors<cr>
+nnoremap <silent> <Leader>b :Buffers<cr>
+nnoremap <silent> <Leader>h :Helptags<cr>
 
 " Add fzf :Find command with ripgrep and remap to CTR+F
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --fixed-strings --ignore-case --follow --glob "!(.git/*|.json)" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0) 
 nnoremap <C-S-F> :Find<cr>
 
-highlight SignColumn ctermbg=none
-
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
-
-" Ctrlp
-" set runtimepath^=~/.vim/bundle/ctrlp.vim
-" let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/](\.(git|hg|svn|dist)|node_modules|bower_components|WEB-INF|build|dist)$',
-    \ }
 
 " use 4 spaces for tabs
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
@@ -113,6 +112,7 @@ autocmd VimEnter * wincmd p
 " Close vim when NERDTree is the last open buffer.
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Show hidden files in NERDTree
+let NERDTreeIgnore = ['\.tags$','^tags$']
 let NERDTreeShowHidden=1
 
 " NERDCommenter
@@ -139,19 +139,21 @@ colorscheme onedark
 let g:onedark_terminal_italics = 1
 " hi Normal guibg=NONE ctermbg=NONE
 hi Visual term=reverse cterm=reverse guibg=NONE
+highlight SignColumn ctermbg=none
 
 " Airline/Powerline
 let g:airline_theme='onedark'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_section_b = "%{airline#util#wrap(airline#extensions#branch#get_head(),0)}"
-let g:airline_section_c = "" " Hide filename in bottom airline.
-let g:airline_section_y = "" " Hide fileencoding and fileformat.
-let g:airline_section_z = "" " Hide percentage, line number and column number.
-let g:airline_section_warning = "%{airline#util#wrap(airline#extensions#ale#get_warnings(),0)}"
+let g:airline_detect_crypt = 0
+let g:airline_detect_spell = 0
+let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline_section_y = airline#section#create([]) " Hide fileencoding and fileformat.
+let g:airline_section_z = airline#section#create([]) " Hide percentage, line number and column number.
 let g:airline#extensions#wordcount#enabled = 0 " Hide wordcount.
+" let g:airline_skip_empty_sections = 1
 set laststatus=2
 set ttimeoutlen=50
-let g:airline#extensions#default#section_truncate_width = {}
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
