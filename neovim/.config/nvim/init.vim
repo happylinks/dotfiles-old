@@ -151,6 +151,9 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline_section_y = airline#section#create([]) " Hide fileencoding and fileformat.
 let g:airline_section_z = airline#section#create([]) " Hide percentage, line number and column number.
 let g:airline#extensions#wordcount#enabled = 0 " Hide wordcount.
+let g:airline#extensions#tabline#buffer_nr_show = 1
+" Just show the filename (no path) in the tab
+let g:airline#extensions#tabline#fnamemod = ':t'
 " let g:airline_skip_empty_sections = 1
 set laststatus=2
 set ttimeoutlen=50
