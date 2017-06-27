@@ -16,7 +16,7 @@ Plug 'alvan/vim-closetag'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
-Plug 'craigemery/vim-autotag'
+" Plug 'craigemery/vim-autotag'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 call plug#end()
@@ -58,6 +58,8 @@ nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
 " Remap CTRL+P to fzf :Files
 nnoremap <C-S-P> :Files<cr>
+" Remap CTRL+B to fzf :Buffers
+nnoremap <C-S-B> :Buffers<cr>
 nnoremap <silent> <leader><leader> :Files<cr>
 nnoremap <silent> <Leader>c :Colors<cr>
 nnoremap <silent> <Leader>b :Buffers<cr>
