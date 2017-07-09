@@ -15,7 +15,6 @@ Plug 'Valloric/MatchTagAlways'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
-" Plug 'craigemery/vim-autotag'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 call plug#end()
@@ -33,16 +32,16 @@ set wildignore+=*/.git/*,*/tmp/*,*.swp,*.json
 
 " Remaps
 " Disable Arrow keys in Escape mode
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
+" map <up> <nop>
+" map <down> <nop>
+" map <left> <nop>
+" map <right> <nop>
 
 " Disable Arrow keys in Insert mode
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
-imap <right> <nop>
+" imap <up> <nop>
+" imap <down> <nop>
+" imap <left> <nop>
+" imap <right> <nop>
 
 " Easier split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -118,6 +117,8 @@ let NERDTreeIgnore = ['\.tags$','^tags$']
 let NERDTreeShowHidden=1
 
 " NERDCommenter
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
 
 " MatchTagAlways
 let g:mta_filetypes = {
