@@ -12,7 +12,6 @@ Plug 'sbdchd/neoformat'
 Plug 'maralla/completor.vim', {'do': 'cd pythonx/completers/javascript && npm install'}
 Plug 'mxw/vim-jsx'
 Plug 'Valloric/MatchTagAlways'
-Plug 'alvan/vim-closetag'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
@@ -93,10 +92,11 @@ let g:neoformat_javascript_prettier_custom = {
             \ 'exe': '/Users/michielwesterbeek/.nvm/versions/node/v7.3.0/bin/prettier',
             \ 'args': [
             \    '--stdin',
-            \    '--parser flow',
+            \    '--parser babylon',
             \    '--single-quote',
             \    '--trailing-comma all',
-            \    '--tab-width 4'
+            \    '--tab-width 4',
+            \    '--print-width 120'
             \ ],
             \ 'stdin': 1,
             \ }
