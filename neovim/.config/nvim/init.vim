@@ -7,7 +7,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
+Plug 'happylinks/ale', { 'branch': 'flow_coverage' }
 Plug 'sbdchd/neoformat'
 Plug 'maralla/completor.vim', {'do': 'cd pythonx/completers/javascript && npm install'}
 Plug 'mxw/vim-jsx'
@@ -86,8 +87,10 @@ filetype plugin indent on
 let g:ale_lint_on_text_changed = 'always'
 let g:ale_sign_column_always = 1
 let g:ale_linters = {
-\   'javascript': ['eslint', 'flow'],
+\   'javascript': ['eslint', 'flow', 'flow-coverage'],
 \}
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Neoformat
 let g:neoformat_javascript_prettier_custom = {
@@ -142,8 +145,10 @@ syntax on
 colorscheme onedark
 let g:onedark_terminal_italics = 1
 " hi Normal guibg=NONE ctermbg=NONE
-hi Visual term=reverse cterm=reverse guibg=NONE
-highlight SignColumn ctermbg=none
+" hi Visual term=reverse cterm=reverse guibg=NONE
+" highlight SignColumn ctermbg=none
+highlight LightWarning guibg=#39393A
+highlight link ALEWarning LightWarning
 
 " Airline/Powerline
 let g:airline_theme='onedark'
@@ -165,7 +170,6 @@ set ttimeoutlen=50
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
   if (has("nvim"))
     "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -176,4 +180,3 @@ if (empty($TMUX))
   if (has("termguicolors"))
     set termguicolors
   endif
-endif

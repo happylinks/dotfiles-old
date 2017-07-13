@@ -90,6 +90,7 @@ export HOMEBREW_NO_ANALYTICS=1
 # export HOMEBREW_CASK_OPTS=--require-sha
 
 export PURE_PROMPT_SYMBOL="▲" # λ ▴ ϟ ▲
+export TERM=xterm-256color
 
 ##############################################################
 # TOOLS.
