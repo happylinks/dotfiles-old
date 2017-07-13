@@ -11,6 +11,7 @@ Plug 'w0rp/ale'
 Plug 'sbdchd/neoformat'
 Plug 'maralla/completor.vim', {'do': 'cd pythonx/completers/javascript && npm install'}
 Plug 'mxw/vim-jsx'
+Plug 'heavenshell/vim-jsdoc'
 Plug 'Valloric/MatchTagAlways'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
