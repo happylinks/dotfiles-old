@@ -106,3 +106,7 @@ export TERM=xterm-256color
 setopt +o nomatch # Fixed nomatch
 
 [ -f ~/.zstuff ] && source ~/.zstuff
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
