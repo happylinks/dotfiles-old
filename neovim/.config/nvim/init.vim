@@ -1,7 +1,8 @@
 set encoding=utf-8
 
 call plug#begin()
-Plug 'joshdick/onedark.vim'
+" Plug 'joshdick/onedark.vim'
+Plug 'rakr/vim-one'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
@@ -139,11 +140,13 @@ let g:closetag_emptyTags_caseSensitive = 1
 
 " Theming
 
-" set background=dark " for the dark version
+set background=dark " for the dark version
 " set background=light " for the light version
 syntax on
-colorscheme onedark
-let g:onedark_terminal_italics = 1
+" colorscheme onedark
+colorscheme one 
+" let g:onedark_terminal_italics = 1
+let g:one_allow_italics = 1
 " hi Normal guibg=NONE ctermbg=NONE
 " hi Visual term=reverse cterm=reverse guibg=NONE
 " highlight SignColumn ctermbg=none
@@ -151,7 +154,8 @@ highlight LightWarning guibg=#39393A
 highlight link ALEWarning LightWarning
 
 " Airline/Powerline
-let g:airline_theme='onedark'
+" let g:airline_theme='onedark'
+let g:airline_theme='one'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_detect_crypt = 0
 let g:airline_detect_spell = 0

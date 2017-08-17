@@ -8,7 +8,7 @@ if [[ ! -f ~/.zplug/init.zsh ]]; then
 fi
 
 export ZPLUG_HOME=~/.zplug
-TERM=xterm
+TERM=xterm-256color
 source $ZPLUG_HOME/init.zsh
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
@@ -90,7 +90,7 @@ export HOMEBREW_NO_ANALYTICS=1
 # export HOMEBREW_CASK_OPTS=--require-sha
 
 export PURE_PROMPT_SYMBOL="▲" # λ ▴ ϟ ▲
-export TERM=xterm-256color
+# export TERM=xterm-256color
 
 ##############################################################
 # TOOLS.
