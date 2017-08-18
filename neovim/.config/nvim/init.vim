@@ -14,12 +14,15 @@ Plug 'sbdchd/neoformat'
 Plug 'maralla/completor.vim', {'do': 'cd pythonx/completers/javascript && npm install'}
 Plug 'mxw/vim-jsx'
 Plug 'heavenshell/vim-jsdoc'
-Plug 'Valloric/MatchTagAlways'
+" Plug 'Valloric/MatchTagAlways'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'machakann/vim-highlightedyank'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 call plug#end()
 
 set statusline+=%#warningmsg#
@@ -67,7 +70,13 @@ nnoremap <silent> <Leader>b :Buffers<cr>
 nnoremap <silent> <Leader>h :Helptags<cr>
 
 " Add fzf :Find command with ripgrep and remap to CTR+F
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --fixed-strings --ignore-case --follow --glob "!(.git/*|.json)" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0) 
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+  \ -g "*.{js,jsx,json,html,config,py,conf}"
+  \ -g "!{.git,node_modules,vendor,build,package-lock.json,yarn.lock,dist,coverage-final.json}/*" '
+
+command! -bang -nargs=* Find call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --fixed-strings --follow --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0) 
 nnoremap <C-S-F> :Find<cr>
 
 let g:javascript_plugin_jsdoc = 1
@@ -88,8 +97,9 @@ filetype plugin indent on
 let g:ale_lint_on_text_changed = 'always'
 let g:ale_sign_column_always = 1
 let g:ale_linters = {
-\   'javascript': ['eslint', 'flow', 'flow-coverage'],
+\   'javascript': ['eslint', 'flow'],
 \}
+" \   'javascript': ['eslint', 'flow', 'flow-coverage'],
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
@@ -170,6 +180,14 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " let g:airline_skip_empty_sections = 1
 set laststatus=2
 set ttimeoutlen=50
+
+" Ultisnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" Highlighted Yank
+let g:highlightedyank_highlight_duration = 300
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
