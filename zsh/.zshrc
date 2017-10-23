@@ -15,12 +15,8 @@ zplug "zplug/zplug", hook-build:"zplug --self-manage"
 export NVM_LAZY_LOAD=true
 zplug "lukechilds/zsh-nvm"
 zplug "zimframework/zim", depth:1, use:"init.zsh", hook-build:"ln -sf $ZPLUG_ROOT/repos/zimframework/zim ~/.zim"
-# zplug "modules/osx", depth:1, from:prezto
-zplug "ahmedelgabri/pure", depth:1, use:"{async,pure}.zsh"
-zplug "knu/z", use:"z.sh", depth:1, defer:1
 zplug "lukechilds/zsh-better-npm-completion", defer:1
-# zplug "maxmellon/yarn_completion", defer:1
-zplug "b4b4r07/emoji-cli"
+zplug "zsh-users/zsh-autosuggestions"
 
 # Zim settings
 zmodules=(
@@ -38,8 +34,6 @@ zmodules=(
 )
 
 zprompt_theme="pure"
-ztermtitle="%n@%m:%~"
-zdouble_dot_expand="true"
 zhighlighters=(main brackets pattern cursor root)
 
 
@@ -80,17 +74,18 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 if [ -x ~/.config/nvim/plugged/fzf.vim/bin/preview.rb ]; then
   export FZF_CTRL_T_OPTS="--preview '~/.config/nvim/plugged/fzf.vim/bin/preview.rb {} | head -200'"
 fi
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' --border"
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
-export HOMEBREW_INSTALL_BADGE="🍕"
 export HOMEBREW_NO_ANALYTICS=1
-# export HOMEBREW_NO_INSECURE_REDIRECT=1
-# export HOMEBREW_CASK_OPTS=--require-sha
 
-export PURE_PROMPT_SYMBOL="▲" # λ ▴ ϟ ▲
-# export TERM=xterm-256color
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"
+
+export PURE_PROMPT_SYMBOL="❯" # λ ▴ ϟ ▲
+
+bindkey '^ ' autosuggest-execute
+bindkey '^l' autosuggest-accept
 
 ##############################################################
 # TOOLS.

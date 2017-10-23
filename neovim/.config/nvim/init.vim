@@ -8,8 +8,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
-" Plug 'w0rp/ale'
-Plug 'happylinks/ale', { 'branch': 'flow_coverage' }
+Plug 'w0rp/ale'
+" Plug 'happylinks/ale', { 'branch': 'flow_coverage' }
 Plug 'sbdchd/neoformat'
 Plug 'maralla/completor.vim', {'do': 'cd pythonx/completers/javascript && npm install'}
 Plug 'mxw/vim-jsx'
@@ -23,6 +23,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'pbrisbin/vim-mkdir'
 call plug#end()
 
 set statusline+=%#warningmsg#
