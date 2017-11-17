@@ -83,8 +83,8 @@ nnoremap <C-S-F> :Find<cr>
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 
-" use 4 spaces for tabs
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
+" use 2 spaces for tabs
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab
 
 " remove whitespace
 autocmd FileType javascript autocmd BufWritePre <buffer> %s/\s\+$//e
@@ -106,19 +106,19 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Neoformat
 let g:neoformat_javascript_prettier_custom = {
-            \ 'exe': '/Users/michielwesterbeek/.nvm/versions/node/v7.3.0/bin/prettier',
+            \ 'exe': '/Users/michielwesterbeek/.nvm/versions/node/v8.1.4/bin/prettier',
             \ 'args': [
             \    '--stdin',
-            \    '--parser babylon',
-            \    '--single-quote',
-            \    '--trailing-comma all',
-            \    '--tab-width 4',
-            \    '--print-width 120'
             \ ],
             \ 'stdin': 1,
             \ }
 
 let g:neoformat_enabled_javascript = ['prettier_custom']
+
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
 
 " NerdTree
 " Open NERDTree automatically when vim starts if no files specified.
