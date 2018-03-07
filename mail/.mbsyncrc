@@ -1,0 +1,157 @@
+# Settings for isync, a program to syncronise IMAP mailboxes
+# This file defines the syncronisation for two accounts, personal and work
+# The remote for each account is a server somewhere, and the local is a folder
+# in ~/.mail
+# Syncronise everything with `mbsync -a`
+
+########################################
+# Default settings
+# Applied to all channels
+########################################
+Create Slave
+Expunge Both
+SyncState *
+
+########################################
+# Personal
+########################################
+IMAPAccount personal
+Host imap.gmail.com
+User happylinks@gmail.com
+# Get the account password from the system Keychain
+PassCmd "~/.dotfiles/bin/get-keychain-pass 'happylinks@gmail.com' 'smtp.gmail.com'"
+AuthMechs LOGIN
+SSLType IMAPS
+
+# Remote storage (where the mail is retrieved from)
+IMAPStore personal-remote
+Account personal
+
+# Local storage (where the mail is retrieved to)
+MaildirStore personal-local
+Path ~/.mail/personal/ # The trailing "/" is important
+Inbox ~/.mail/personal/_
+
+Channel personal-inbox
+Master :personal-remote:INBOX
+Slave :personal-local:_
+
+Channel personal-archive
+Master :personal-remote:"[Gmail]/All Mail"
+Slave :personal-local:_.Archive
+
+Channel personal-drafts
+Master :personal-remote:"[Gmail]/Drafts"
+Slave :personal-local:_.Drafts
+
+Channel personal-starred
+Master :personal-remote:"[Gmail]/Starred"
+Slave :personal-local:_.Starred
+
+Channel personal-sent
+Master :personal-remote:"[Gmail]/Sent Mail"
+Slave :personal-local:_.Sent
+
+Channel personal-spam
+Master :personal-remote:"[Gmail]/Spam"
+Slave :personal-local:_.Spam
+
+Channel personal-trash
+Master :personal-remote:"[Gmail]/Trash"
+Slave :personal-local:_.Trash
+
+Channel personal-folders
+Master :personal-remote:
+Slave :personal-local:
+# All folders except those defined above
+Patterns * !INBOX !Archive !Drafts !Starred !Sent !Spam !Trash ![Gmail]*
+
+# Group the channels, so that all channels can be sync'd with `mbsync personal`
+Group personal
+Channel personal-inbox
+Channel personal-archive
+Channel personal-drafts
+Channel personal-sent
+Channel personal-spam
+Channel personal-trash
+Channel personal-folders
+
+# For doing a quick sync of just the INBOX with `mbsync personal-Download`.
+Channel personal-download
+Master :personal-remote:INBOX
+Slave :personal-local:_
+Create Slave
+Expunge Slave
+Sync Pull
+
+########################################
+# Work
+########################################
+IMAPAccount work
+Host imap.gmail.com
+User michiel.westerbeek@bynder.com
+# Get the account password from the system Keychain
+PassCmd "~/.dotfiles/bin/get-keychain-pass 'michiel.westerbeek@bynder.com' 'smtp.gmail.com'"
+AuthMechs LOGIN
+SSLType IMAPS
+
+# Remote storage (where the mail is retrieved from)
+IMAPStore work-remote
+Account work
+
+# Local storage (where the mail is retrieved to)
+MaildirStore work-local
+Path ~/.mail/work/ # The trailing "/" is important
+Inbox ~/.mail/work/_
+
+Channel work-inbox
+Master :work-remote:INBOX
+Slave :work-local:_
+
+Channel work-archive
+Master :work-remote:"[Gmail]/All Mail"
+Slave :work-local:_.Archive
+
+Channel work-drafts
+Master :work-remote:"[Gmail]/Drafts"
+Slave :work-local:_.Drafts
+
+Channel work-starred
+Master :work-remote:"[Gmail]/Starred"
+Slave :work-local:_.Starred
+
+Channel work-sent
+Master :work-remote:"[Gmail]/Sent Mail"
+Slave :work-local:_.Sent
+
+Channel work-spam
+Master :work-remote:"[Gmail]/Spam"
+Slave :work-local:_.Spam
+
+Channel work-trash
+Master :work-remote:"[Gmail]/Trash"
+Slave :work-local:_.Trash
+
+Channel work-folders
+Master :work-remote:
+Slave :work-local:
+# All folders except those defined above
+Patterns * !INBOX !Archive !Drafts !Starred !Sent !Spam !Trash ![Gmail]*
+
+# Group the channels, so that all channels can be sync'd with `mbsync work`
+Group work
+Channel work-inbox
+Channel work-archive
+Channel work-drafts
+Channel work-sent
+Channel work-spam
+Channel work-trash
+Channel work-folders
+
+# For doing a quick sync of just the INBOX with `mbsync work-Download`.
+Channel work-download
+Master :work-remote:INBOX
+Slave :work-local:_
+Create Slave
+Expunge Slave
+Sync Pull

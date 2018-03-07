@@ -1,0 +1,18 @@
+{
+  "title": "Bynder Frontend",
+  "windows": [
+    {
+      "title": "Webserver",
+      "layout": {
+        "top": "npm run start"
+      }
+    },
+    {
+      "title": "Editor",
+      "layout": {
+        "top": "vim",
+        "bottom": "git status"
+      }
+    }
+  ]
+}

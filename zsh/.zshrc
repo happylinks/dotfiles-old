@@ -11,6 +11,9 @@ export ZPLUG_HOME=~/.zplug
 TERM=xterm-256color
 source $ZPLUG_HOME/init.zsh
 
+alias flow='nocorrect flow'
+alias jest='nocorrect jest'
+
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
 export NVM_LAZY_LOAD=true
 zplug "lukechilds/zsh-nvm"
@@ -35,7 +38,6 @@ zmodules=(
 
 zprompt_theme="pure"
 zhighlighters=(main brackets pattern cursor root)
-
 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
@@ -105,3 +107,13 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+# OPAM configuration
+. /Users/michielwesterbeek/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/michielwesterbeek/.nvm/versions/node/v9.4.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/michielwesterbeek/.nvm/versions/node/v9.4.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/michielwesterbeek/.nvm/versions/node/v9.4.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/michielwesterbeek/.nvm/versions/node/v9.4.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh

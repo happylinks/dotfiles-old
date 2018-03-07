@@ -11,8 +11,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 " Plug 'happylinks/ale', { 'branch': 'flow_coverage' }
 Plug 'sbdchd/neoformat'
-Plug 'maralla/completor.vim', {'do': 'cd pythonx/completers/javascript && npm install'}
-Plug 'mxw/vim-jsx'
+" Plug 'maralla/completor.vim', {'do': 'cd pythonx/completers/javascript && npm install'}
+" Plug 'mxw/vim-jsx'
 Plug 'heavenshell/vim-jsdoc'
 " Plug 'Valloric/MatchTagAlways'
 Plug 'christoomey/vim-tmux-navigator'
@@ -24,8 +24,18 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'pbrisbin/vim-mkdir'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': './install.sh'
+    \ }
+Plug 'roxma/nvim-completion-manager'
+Plug 'reasonml-editor/vim-reason-plus'
+Plug 'vimwiki/vimwiki'
+Plug 'jparise/vim-graphql'
+Plug 'tell-k/vim-autopep8'
 call plug#end()
 
+set hidden
 set statusline+=%#warningmsg#
 set statusline+=%{ALEGetStatusLine()}
 set statusline+=%*
@@ -35,7 +45,7 @@ set omnifunc=syntaxcomplete#Complete
 set splitbelow
 set splitright
 set backspace=indent,eol,start
-set wildignore+=*/.git/*,*/tmp/*,*.swp,*.json
+set wildignore+=*/.git/*,*/tmp/*,*.swp
 
 " Remaps
 " Disable Arrow keys in Escape mode
@@ -105,15 +115,36 @@ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Neoformat
+" let g:neoformat_verbose = 1
 let g:neoformat_javascript_prettier_custom = {
-            \ 'exe': '/Users/michielwesterbeek/.nvm/versions/node/v8.1.4/bin/prettier',
+            \ 'exe': '/Users/michielwesterbeek/.nvm/versions/node/v9.4.0/bin/prettier',
             \ 'args': [
             \    '--stdin',
+            \    '--tab-width=2',
+            \    '--single-quote',
+            \    '--trailing-comma=es5'
+            \ ],
+            \ 'stdin': 1,
+            \ }
+let g:neoformat_graphql_prettier_custom = {
+            \ 'exe': '/Users/michielwesterbeek/.nvm/versions/node/v9.4.0/bin/prettier',
+            \ 'args': [
+            \    '--stdin',
+            \    '--parser',
+            \    'graphql'
             \ ],
             \ 'stdin': 1,
             \ }
 
+let g:neoformat_reason_refmt_custom = {
+            \ 'exe': '/Users/michielwesterbeek/.nvm/versions/node/v9.4.0/bin/refmt',
+            \ 'stdin': 1,
+            \ }
+
 let g:neoformat_enabled_javascript = ['prettier_custom']
+let g:neoformat_enabled_graphql = ['prettier_custom']
+let g:neoformat_enabled_reason = ['refmt_custom']
+let g:neoformat_enabled_python = []
 
 augroup fmt
   autocmd!
@@ -183,12 +214,47 @@ set laststatus=2
 set ttimeoutlen=50
 
 " Ultisnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Highlighted Yank
 let g:highlightedyank_highlight_duration = 300
+
+" nvim-completion-manager
+set shortmess+=c
+
+" LanguageClient
+let g:LanguageClient_serverCommands = {
+    \ 'reason': ['/Users/michielwesterbeek/.nvm/versions/node/v9.4.0/bin/ocaml-language-server', '--stdio'],
+    \ 'ocaml': ['/Users/michielwesterbeek/.nvm/versions/node/v9.4.0/bin/ocaml-language-server', '--stdio'],
+    \ 'javascript': ['/Users/michielwesterbeek/.nvm/versions/node/v9.4.0/bin/flow-language-server', '--stdio'],
+    \ 'javascript.jsx': ['/Users/michielwesterbeek/.nvm/versions/node/v9.4.0/bin/flow-language-server', '--stdio'],
+    \ }
+
+" (Optionally) automatically start language servers.
+let g:LanguageClient_autoStart = 1
+
+" Ultisnips
+let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
+inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<c-j>"
+inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : "\<c-k>"
+
+" Reason/Ocaml
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
+nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
+nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
+
+" Autopep8
+let g:autopep8_disable_show_diff=0
+
+set colorcolumn=80
+
+" Merlin
+" let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+" execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
