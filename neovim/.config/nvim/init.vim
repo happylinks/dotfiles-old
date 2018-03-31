@@ -122,7 +122,7 @@ let g:neoformat_javascript_prettier_custom = {
             \    '--stdin',
             \    '--tab-width=2',
             \    '--single-quote',
-            \    '--trailing-comma=es5'
+            \    '--trailing-comma=all'
             \ ],
             \ 'stdin': 1,
             \ }
@@ -146,10 +146,10 @@ let g:neoformat_enabled_graphql = ['prettier_custom']
 let g:neoformat_enabled_reason = ['refmt_custom']
 let g:neoformat_enabled_python = []
 
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
-augroup END
+" augroup fmt
+"   autocmd!
+"   autocmd BufWritePre * undojoin | Neoformat
+" augroup END
 
 " NerdTree
 " Open NERDTree automatically when vim starts if no files specified.
@@ -234,6 +234,7 @@ let g:LanguageClient_serverCommands = {
 
 " (Optionally) automatically start language servers.
 let g:LanguageClient_autoStart = 1
+let g:LanguageClient_loggingLevel = 'DEBUG'
 
 " Ultisnips
 let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
